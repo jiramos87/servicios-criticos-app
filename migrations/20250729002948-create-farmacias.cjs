@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,57 +7,58 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       nombre: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       direccion: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       telefono: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       horario_apertura: {
         type: Sequelize.TIME,
-        allowNull: false
+        allowNull: false,
       },
       horario_cierre: {
         type: Sequelize.TIME,
-        allowNull: false
+        allowNull: false,
       },
       latitud: {
         type: Sequelize.DECIMAL(9, 6),
-        allowNull: false
+        allowNull: false,
       },
       longitud: {
         type: Sequelize.DECIMAL(9, 6),
-        allowNull: false
+        allowNull: false,
       },
       activo: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
-    })
+        type: Sequelize.DATE,
+      },
+    });
 
     // Agregar índices
-    await queryInterface.addIndex('Farmacias', ['latitud', 'longitud'])
-    await queryInterface.addIndex('Farmacias', ['activo'])
-    await queryInterface.addIndex('Farmacias', ['nombre'])
+    await queryInterface.addIndex('Farmacias', ['latitud', 'longitud']);
+    await queryInterface.addIndex('Farmacias', ['activo']);
+    await queryInterface.addIndex('Farmacias', ['nombre']);
   },
 
+  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Farmacias')
-  }
-}
+    await queryInterface.dropTable('Farmacias');
+  },
+};

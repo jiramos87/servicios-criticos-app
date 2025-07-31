@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize'
-import dotenv from 'dotenv'
-import createUserModel from './User.js'
-import createFarmaciaModel from './Farmacia.js'
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+import createUserModel from './User.js';
+import createFarmaciaModel from './Farmacia.js';
 
 dotenv.config();
 
@@ -13,20 +13,16 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'postgres',
-    logging: false
+    logging: false,
   }
-)
+);
 
 // Inicializar modelos
-const User = createUserModel(sequelize)
-const Farmacia = createFarmaciaModel(sequelize)
+const User = createUserModel(sequelize);
+const Farmacia = createFarmaciaModel(sequelize);
 
 // Definir relaciones si las hay
 // User.hasMany(Farmacia, { foreignKey: 'userId' });
 // Farmacia.belongsTo(User, { foreignKey: 'userId' });
 
-export {
-  sequelize,
-  User,
-  Farmacia
-}
+export { sequelize, User, Farmacia };

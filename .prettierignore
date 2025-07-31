@@ -1,0 +1,32 @@
+# Ignora dependencias
+node_modules
+**/node_modules
+
+# Ignora carpetas de build o dist
+build
+dist
+out
+
+# Ignora lockfiles innecesarios
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ignora carpeta .devcontainer si no quieres formatear sus scripts
+.devcontainer
+
+# Ignora estado local de terraform
+**/.terraform
+**/*.tfstate
+**/*.tfstate.backup
+
+# Ignora docker
+**/Dockerfile
+**/docker-compose.yml
+
+# Ignora archivos generados
+coverage
+.env
+*.log
+*.md
+**/*.md

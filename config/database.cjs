@@ -11,7 +11,7 @@ module.exports = {
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT, 10) || 5434,
     dialect: 'postgres',
-    logging: false
+    logging: false,
   },
   test: {
     username: process.env.DATABASE_USER || 'postgres',
@@ -20,7 +20,7 @@ module.exports = {
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT, 10) || 5434,
     dialect: 'postgres',
-    logging: false
+    logging: false,
   },
   production: {
     username: process.env.DATABASE_USER,
@@ -29,6 +29,6 @@ module.exports = {
     host: process.env.DATABASE_HOST,
     port: parseInt(process.env.DATABASE_PORT, 10),
     dialect: 'postgres',
-    logging: false
-  }
-}
+    logging: false,
+  },
+};

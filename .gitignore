@@ -1,5 +1,55 @@
-node_modules
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dotenv
 .env
-postgres-data/
+.env.*
+!.env.example
+
+# IDEs
 .vscode/
-.seeded
+.idea/
+*.swp
+
+# Logs
+logs/
+*.log
+
+# Build
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Database (local dev data)
+postgres-data/
+*.sqlite
+*.sqlite3
+*.db
+*.seeded
+
+# Husky
+.husky/*.old
+.husky/*.backup
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Testing
+jest-cache/
+coverage/
+
+# OS / Misc
+*.tgz
+*.gz
+*.zip
+*.bak
+*.tmp
+
+# ESLint
+.eslintcache

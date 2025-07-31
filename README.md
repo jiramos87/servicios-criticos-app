@@ -1,4 +1,5 @@
-# 📋 README.md completo 
+# 📋 README.md completo
+
 # Servicios Críticos API
 
 API REST para la gestión de servicios críticos de emergencia, específicamente farmacias.
@@ -22,12 +23,14 @@ API REST para la gestión de servicios críticos de emergencia, específicamente
 ## 🛠️ Instalación
 
 ### Usando Dev Container (Recomendado)
+
 1. Abrir proyecto en VSCode
 2. Instalar extensión "Dev Containers"
 3. Ejecutar: `Dev Containers: Reopen in Container`
 
 ### Instalación Manual
-```bash
+
+````bash
 # Clonar repositorio
 git clone https://github.com/tu-usuario/servicios-criticos-app.git
 cd servicios-criticos-app
@@ -52,5 +55,60 @@ Este proyecto utiliza ES Modules (`"type": "module"` en `package.json`). La vers
 
 Ejemplo: `migrations/xxxxxxxx-create-new-table.js` -> `migrations/xxxxxxxx-create-new-table.cjs`
 
+## ✨ Linting, Formateo y Pre-commits
+
+Este proyecto incluye herramientas modernas para mantener la calidad del código:
+
+- **ESLint**: análisis estático con configuración recomendada de `@eslint/js`.
+- **Prettier**: formateador de código automático.
+- **lint-staged**: solo ejecuta ESLint en archivos modificados antes del commit.
+- **Husky**: ejecuta hooks Git como `pre-commit`.
+
+### 📦 Dependencias relevantes
+
+Instaladas automáticamente con `npm install`:
+
+```bash
+eslint
+prettier
+eslint-plugin-prettier
+eslint-config-prettier
+@eslint/js
+globals
+husky
+lint-staged
+````
+
+### 🔧 Scripts disponibles
+
+```bash
+npm run lint       # Verifica errores de lint en todo el proyecto
+npm run lint:fix   # Corrige errores automáticamente
+```
+
+### ✅ Uso del hook de pre-commit
+
+Antes de hacer un commit, `husky` ejecuta automáticamente:
+
+```bash
+npx lint-staged
+```
+
+Esto evita que se cometan archivos con errores de estilo. Si `eslint --fix` puede resolverlos, lo hará automáticamente; si no, el commit fallará.
+
+### 🧪 Prueba rápida
+
+```bash
+echo "const foo =   'hola'
+console.log(foo)" > test.js
+
+git add test.js
+
+git commit -m "Probando pre-commit"
+```
+
+El commit será rechazado si hay errores no corregibles.
+
 # Iniciar servidor
+
 npm run dev
