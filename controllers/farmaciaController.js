@@ -110,3 +110,56 @@ export const deleteFarmacia = async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar farmacia' });
   }
 };
+
+// Listar TOP N farmacias cercanas a una ubicación
+export const getFarmaciasCercanas = async (req, res) => {
+  try {
+    const { latitud, longitud, n } = req.query;
+    const lat = parseFloat(latitud);
+    const lon = parseFloat(longitud);
+    const topN = parseInt(n);
+
+    // Traer solo farmacias activas
+    const farmacias = await Farmacia.findAll({
+      where: { activo: true },
+      attributes: [
+        'id',
+        'nombre',
+        'direccion',
+        'telefono',
+        'horario_apertura',
+        'horario_cierre',
+        'latitud',
+        'longitud',
+        'activo',
+      ],
+    });
+
+    // Calcular distancia usando la fórmula de Haversine
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 6371; // Radio de la Tierra en km
+    const calcularDistancia = (lat1, lon1, lat2, lon2) => {
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    };
+
+    const farmaciasConDistancia = farmacias.map((f) => {
+      const distancia = calcularDistancia(lat, lon, parseFloat(f.latitud), parseFloat(f.longitud));
+      return { ...f.toJSON(), distancia };
+    });
+
+    // Ordenar por distancia y tomar el top N
+    farmaciasConDistancia.sort((a, b) => a.distancia - b.distancia);
+    const topFarmacias = farmaciasConDistancia.slice(0, topN);
+
+    res.json({ farmacias: topFarmacias });
+  } catch (error) {
+    console.error('Error al obtener farmacias cercanas:', error);
+    res.status(500).json({ error: 'Error al obtener farmacias cercanas' });
+  }
+};

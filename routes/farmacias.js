@@ -6,6 +6,7 @@ import {
   createFarmacia,
   updateFarmacia,
   deleteFarmacia,
+  getFarmaciasCercanas, // Nuevo controlador para farmacias cercanas
 } from '../controllers/farmaciaController.js';
 import { authenticateToken, requireSuperUsuario } from '../middleware/auth.js';
 import { validateRequest } from '../middleware/validation.js';
@@ -55,6 +56,23 @@ router.get(
     validateRequest,
   ],
   getFarmacias
+);
+
+// Endpoint para obtener el TOP N de farmacias cercanas
+router.get(
+  '/cercanas',
+  [
+    authenticateToken,
+    query('latitud')
+      .isFloat({ min: -90, max: 90 })
+      .withMessage('Latitud debe estar entre -90 y 90'),
+    query('longitud')
+      .isFloat({ min: -180, max: 180 })
+      .withMessage('Longitud debe estar entre -180 y 180'),
+    query('n').isInt({ min: 1, max: 100 }).withMessage('N debe estar entre 1 y 100'),
+    validateRequest,
+  ],
+  getFarmaciasCercanas
 );
 
 router.get(

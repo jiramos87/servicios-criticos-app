@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
   const Farmacia = sequelize.define(
-    'Farmacia',
+    'Farmacias',
     {
       id: {
         type: DataTypes.INTEGER,
