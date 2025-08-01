@@ -1,92 +1,83 @@
-# 📋 README.md completo
+# API Servicios Críticos
 
-# Servicios Críticos API
+Esta proyecto fue construido para el Taller de Software del Diploma de Postítulo en Ingeniería de Software.
 
-API REST para la gestión de servicios críticos de emergencia, específicamente farmacias.
+Incluye una API REST completa para la gestión de farmacias de turno, autenticación JWT, y ejemplos de middleware de seguridad y validación.
 
-## 🚀 Características
+Forma parte inicial de proyecto **"Emergencia 24/7: Red Social de Servicios Críticos"**.
 
-- **Autenticación JWT** con roles diferenciados
-- **CRUD completo** para gestión de farmacias
-- **Base de datos PostgreSQL** con Sequelize ORM
-- **Middleware de seguridad** integrado
-- **Validación de datos** con express-validator
-- **Rate limiting** para protección contra ataques
-- **Dev Container** para desarrollo consistente
+## Requisitos
 
-## 📋 Requisitos
+Para utilizar esta plantilla se recomienda tener instalado:
+- [Docker](https://docs.docker.com/desktop/) o [Podman](https://podman-desktop.io/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [GitHub Desktop](https://desktop.github.com/download/)
 
-- Node.js 18+
-- PostgreSQL 12+
-- Docker (para Dev Containers)
+Al abrir el repositorio en VSCode, se sugerirá el uso de DevContainers y la instalación de extensiones recomendadas.
 
-## 🛠️ Instalación
+## Instrucciones para levantar proyecto
+Para levantar el proyecto seguir las siguientes instrucciones:
+1. Clonar y abrir repositorio en VSCode.
+2. Configurar variables de entorno y editar tus configuraciones según archivo de referencia:
+    - `cp .env.example .env`
+3. Instalar extensión "Dev Containers".
+4. Ejecutar:
+    - Windows: `CTRL + SHIFT + P` y buscar `Dev Containers: Rebuild and Reopen in Container`
+    - MacOS: `COMMAND + SHIFT + P` y buscar `Dev Containers: Rebuild and Reopen in Container`
+5. Iniciar servidor:
+    - `npm run dev`
 
-### Usando Dev Container (Recomendado)
+## Instrucciones para pruebas
 
-1. Abrir proyecto en VSCode
-2. Instalar extensión "Dev Containers"
-3. Ejecutar: `Dev Containers: Reopen in Container`
+1. Utilizar [Postman](https://www.postman.com/downloads/) o alguna herramienta para ejecutar peticiones HTTP.
+2. Descargar colecciones de Postman ubicadas en: `/collections/`
+3. Importar colecciones en Postman.
+3. Ejecutar peticiones contenidas en Postman:
+    - **Ciudadano - Servicios Críticos**
+        - Autenticar (paso obligatorio) y Consultar Servicios Críticos (Lista y cercanos)
+        - Autenticar (paso obligatorio) y realizar pruebas de casos no permitidos para el Usuario. (Crear, Actualizar y Eliminar)
+    - **Ciudadano - Servicios Críticos**
+        - Autenticar (paso obligatorio) y realizar diversas acciones CRUD (Crear, Actualizar y Eliminar)
 
-### Instalación Manual
 
-````bash
-# Clonar repositorio
-git clone https://github.com/tu-usuario/servicios-criticos-app.git
-cd servicios-criticos-app
+## Automatizaciones
 
-# Instalar dependencias
-npm install
+Este proyecto posee scripts npm para automatizar tareas comunes de desarrollo y mantenimiento. Cada comando puede ejecutarse con `npm run <script>` desde la terminal.
 
-# Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tus configuraciones
+### Servidor y base de datos
 
-# Inicializar base de datos
-npm run db:setup # O `npm run db:reset` para recrear todo
+- **dev**: inicia el servidor de desarrollo con recarga automática (`nodemon`).
+- **start**: inicia el servidor en modo producción.
+- **db:create**: crea la base de datos definida en la configuración.
+- **migrate**: aplica las migraciones pendientes a la base de datos.
+- **seed**: carga datos de ejemplo desde los seeders.
+- **db:setup**: crea la base de datos, ejecuta migraciones y seeders.
+- **db:reset**: elimina y recrea la base de datos, migraciones y seeders.
 
-### ⚠️ Nota Importante sobre ES Modules y Sequelize
-Este proyecto utiliza ES Modules (`"type": "module"` en `package.json`). La versión actual de `sequelize-cli` (v6) requiere que los archivos de migración y seeder usen la extensión `.cjs` para ser compatibles.
+También puedes usar el script bash `scripts/init-db.sh` para inicializar la base de datos desde la terminal.
 
-**Al crear una nueva migración o seeder:**
-1. Genera el archivo como de costumbre (ej: `npx sequelize-cli migration:generate --name create-new-table`).
-2. `sequelize-cli` creará un archivo con extensión `.js`.
-3. **Debes renombrar manualmente el archivo a `.cjs`** para que los comandos `npm run migrate` y `npm run seed` funcionen.
+### Calidad y seguridad de código
 
-Ejemplo: `migrations/xxxxxxxx-create-new-table.js` -> `migrations/xxxxxxxx-create-new-table.cjs`
+- **lint**: ejecuta ESLint en todo el proyecto.
+- **lint:fix**: corrige errores de lint automáticamente.
+- **pre-commit**: ejecuta `lint-staged` antes de cada commit para asegurar calidad de código.
 
-## ✨ Linting, Formateo y Pre-commits
-
-Este proyecto incluye herramientas modernas para mantener la calidad del código:
-
-- **ESLint**: análisis estático con configuración recomendada de `@eslint/js`.
-- **Prettier**: formateador de código automático.
-- **lint-staged**: solo ejecuta ESLint en archivos modificados antes del commit.
-- **Husky**: ejecuta hooks Git como `pre-commit`.
-
-### 📦 Dependencias relevantes
+### Dependencias relevantes
 
 Instaladas automáticamente con `npm install`:
+- express, cors, helmet, dotenv, jsonwebtoken, bcryptjs, express-validator, express-rate-limit, pg, sequelize
+- eslint, prettier, husky, lint-staged, nodemon, sequelize-cli, supertest
+
+### Scripts disponibles
 
 ```bash
-eslint
-prettier
-eslint-plugin-prettier
-eslint-config-prettier
-@eslint/js
-globals
-husky
-lint-staged
-````
-
-### 🔧 Scripts disponibles
-
-```bash
-npm run lint       # Verifica errores de lint en todo el proyecto
+npm run dev        # Servidor de desarrollo
+npm run start      # Servidor en producción
+npm run lint       # Verifica errores de lint
 npm run lint:fix   # Corrige errores automáticamente
 ```
 
-### ✅ Uso del hook de pre-commit
+### Uso del hook de pre-commit
 
 Antes de hacer un commit, `husky` ejecuta automáticamente:
 
@@ -96,10 +87,11 @@ npx lint-staged
 
 Esto evita que se cometan archivos con errores de estilo. Si `eslint --fix` puede resolverlos, lo hará automáticamente; si no, el commit fallará.
 
-### 🧪 Prueba rápida
+### Uso demostrado de linters
 
 ```bash
-echo "const foo =   'hola'
+echo "import { Router } from 'express'
+const foo =   'hola'
 console.log(foo)" > test.js
 
 git add test.js
@@ -108,7 +100,3 @@ git commit -m "Probando pre-commit"
 ```
 
 El commit será rechazado si hay errores no corregibles.
-
-# Iniciar servidor
-
-npm run dev
